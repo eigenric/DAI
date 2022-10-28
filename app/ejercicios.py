@@ -37,7 +37,7 @@ def fibonacci(n):
 
     prevPrev = 0
     prev = 1
-    for i in range(2, n):
+    for i in range(1, n):
         currentNumber = prevPrev + prev
         prevPrev = prev
         prev = currentNumber
