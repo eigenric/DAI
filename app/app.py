@@ -2,9 +2,10 @@
 Prácticas 0-2
 """
 
-from re import I
+import json
 from bson.json_util import dumps
 from bson import ObjectId
+
 from pymongo import MongoClient
 
 from flask import (Flask, Response, render_template, send_from_directory, jsonify, 
@@ -37,6 +38,16 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 # --- Práctica 2.1 Búsquedas en MongoDB. ---
+
+class JSONEncoder(json.JSONEncoder):
+    """Cast de objectID a Python str"""
+
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
+app.json_encoder = JSONEncoder
 
 @app.route('/todas_las_recetas')
 def mongo_todas_las_recetas():
@@ -191,29 +202,37 @@ def api_recipe(id):
     PUT: Modificar una receta dado su id
     DELETE: Borrar una receta dado su id
     """
+    _id = {"_id": ObjectId(id)}
 
     if request.method ==  "GET":
-        buscado = db.recipes.find_one({'_id':ObjectId(id)})
+        buscado = db.recipes.find_one(_id)
         if buscado:
-            buscado['_id'] = str(buscado['_id']) # casting a string (es un ObjectId)
             return jsonify(buscado)
         else:
-            return jsonify(buscado), 404
+            return jsonify({"message": "No se ha podido encontrar"}), 404
 
     elif request.method == "PUT":
-        data = request.get_json()
-        filter = {"_id": f"ObjectId(id)"}
-        modificado = db.recipes.update_one(filter, data)
- 
-        if modificado:
-            modificado["_id"] = str(modificado['_id'])
-            return jsonify(modificado)
+        set_data = {"$set": request.get_json()}
+        modificado = db.recipes.update_one(_id, set_data)
+
+        if modificado.modified_count > 0:
+            return jsonify({
+                "message": "Modificado correctamente",
+                **modificado.raw_result
+            }), 200
         else:
-            return jsonify(modificado, 404)
+            return jsonify({"message": "No se ha podido modificar"}), 404
 
     elif request.method == "DELETE":
-        # TODO: 
-        pass
+        eliminado = db.recipes.delete_one(_id)
+        if eliminado:
+            return jsonify({
+                "message": "Eliminado correctamente",
+                **eliminado.raw_result
+            }), 200
+        else:
+            return jsonify({"message": "No se ha podido eliminar"}), 404
+
         
 
 @app.route("/api/recetas?con=<bebida>")

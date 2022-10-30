@@ -1,0 +1,22 @@
+a.Update
+a
+a.update({"b": 3})
+a
+b
+b.update({"b": 3})
+b.update("b": 3)
+b.update
+b
+b =a
+b = {"b": **a}
+a = {"a": 1}
+db.recipes.updateOne({"_id": "ObjectId(5f7daa168ec9dfb536781b0b)"}, {"$set": {"name": "Nuevo Nombre"}})
+db.recipes.findOne({"slug": "a-midsummernight-dream"})
+db.recipes.updateOne({"_id": "ObjectId(5f7daa168ec9dfb536781b0b)"}, {"$set": {"name": "Nuevo Nombre"}})
+db.recipes.updateOne({"_id": "ObjectId(5f7daa168ec9dfb536781b0b)"}, {"name": "Nuevo Nombre"})
+db.recipes.update_one({"_id": "ObjectId(5f7daa168ec9dfb536781b0b)"}, {"name": "Nuevo Nombre"})
+db.recipes.update_
+db.updateOne({"_id": "ObjectId(5f7daa168ec9dfb536781b0b)"}, {"name": "Nuevo Nombre"})
+db.update_one({"_id": "ObjectId(5f7daa168ec9dfb536781b0b)"}, {"name": "Nuevo Nombre"})
+db.update_one
+use cockteles
