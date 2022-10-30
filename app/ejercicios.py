@@ -1,6 +1,8 @@
-import re
+"""
+Módulo de ejercicios Práctica 0
+"""
 
-# Biblioteca de ejercicios
+import re
 
 def CribaDeErastotenes(n):
     """Imprime los números primos anteriores a n siguiendo 
