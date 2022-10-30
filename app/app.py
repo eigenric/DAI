@@ -214,7 +214,7 @@ def api_recetas_con(bebida):
     ingredientes"""
     
     buscado = db.recipes.find({
-        "ingredients.name": {"$eq": str(bebida)}
+        "ingredients.name": {"$eq": str(bebida)} 
     })
     code = 200 if buscado else 404
     return jsonify(buscado), code
