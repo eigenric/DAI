@@ -13,7 +13,6 @@ from ejercicios import fibonacci
 
 app = Flask(__name__, static_url_path='/static')
 client = MongoClient("mongo", 27017)
-#client.topology_description = "UnifiedTopology"
 db = client.cockteles
 
 # --- Práctica 1 --- Ejercicios
