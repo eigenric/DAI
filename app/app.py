@@ -39,16 +39,6 @@ def page_not_found(e):
 
 # --- Práctica 2.1 Búsquedas en MongoDB. ---
 
-class JSONEncoder(json.JSONEncoder):
-    """Cast de objectID a Python str"""
-
-    def default(self, o):
-        if isinstance(o, ObjectId):
-            return str(o)
-        return json.JSONEncoder.default(self, o)
-
-app.json_encoder = JSONEncoder
-
 @app.route('/todas_las_recetas')
 def mongo_todas_las_recetas():
     """Devuelve todas las recetas en formato json"""
@@ -135,27 +125,30 @@ def mongo_recetas_n_ingredientes_o_instrucciones(n, field):
     elif field == "instrucciones":
         field = "instructions"
 
-    recetas_con_n_ingredients = db.recipes.aggregate([
+    recetas_con_n_ingredientes = db.recipes.aggregate([
         {"$match": {f"{field}": {"$size": n}}}
     ])
 
-    lista_recetas = []
-    for receta in recetas_con_n_ingredients:
-        app.logger.debug(receta)
-        lista_recetas.append(receta)
+    lista_recetas = [receta for receta in recetas_con_n_ingredientes]
     
     response = {
         "len": len(lista_recetas),
         "data": lista_recetas
     }
-    
     resJson = dumps(response)
-    
     return Response(resJson, mimetype="application/json")
 
-# TODO: Incluir una búsqueda extra.
-
 # --- Práctica 2.2. API RESTFull -- 
+
+class JSONEncoder(json.JSONEncoder):
+    """Cast de objectID a Python str"""
+
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
+app.json_encoder = JSONEncoder
 
 @app.route("/api/recipes", methods=["GET", "POST"])
 def api_recipes():
@@ -165,15 +158,8 @@ def api_recipes():
     """
 
     if request.method == "GET": 
-        lista = []
         buscados = db.recipes.find().sort("name")
-        for recipe in buscados:
-            recipe["_id"] = str(recipe["_id"])
-            lista.append(recipe)
-        app.logger.debug(lista)
-        
-        # Jsonify ya devuelve application JSON Mimetype
-        return jsonify(lista)
+        return jsonify([recipe for recipe in buscados])
 
     elif request.method == "POST": 
         # https://stackoverflow.com/questions/16586180/typeerror-objectid-is-not-json-serializable
@@ -234,7 +220,6 @@ def api_recipe(id):
             return jsonify({"message": "No se ha podido eliminar"}), 404
 
         
-
 @app.route("/api/recetas?con=<bebida>")
 def api_recetas_con(bebida):
     """Devolución de Json con las recetas que contengan cierta bebida entre sus ingredientes"""
