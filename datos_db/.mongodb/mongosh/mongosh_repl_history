@@ -1,0 +1,3 @@
+db.recipes.find({"ingredients.name": {"$eq": "Vodka"}})
+clear
+use cockteles

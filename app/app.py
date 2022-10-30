@@ -159,27 +159,15 @@ def api_recipes():
 
     if request.method == "GET": 
         buscados = db.recipes.find().sort("name")
-        return jsonify([recipe for recipe in buscados])
+        recetas = [str(receta) for receta in buscados]
+        return jsonify(recetas), 200 # Ok
 
     elif request.method == "POST": 
-        # https://stackoverflow.com/questions/16586180/typeerror-objectid-is-not-json-serializable
-
         data = request.get_json()
         _id = db.recipes.insert_one(data)
-        dict_id = { 
-            "acknowledged": _id.acknowledged,
-            "insertedId": str(_id.inserted_id)
-        }
-        data_created = db.recipes.find_one(_id.inserted_id)
-        data_created["_id"] = str(_id.inserted_id)
+        receta_creada = db.recipes.find_one(_id.inserted_id)
+        return jsonify(receta_creada), 201 # Created
 
-        response = {
-            "creation": dict_id, 
-            "data": data_created
-        }
-
-        return jsonify(response), 201
-    
 
 @app.route('/api/recipes/<id>', methods=['GET', 'PUT', 'DELETE'])
 def api_recipe(id):
@@ -193,7 +181,7 @@ def api_recipe(id):
     if request.method ==  "GET":
         buscado = db.recipes.find_one(_id)
         if buscado:
-            return jsonify(buscado)
+            return jsonify(buscado), 200
         else:
             return jsonify({"message": "No se ha podido encontrar"}), 404
 
@@ -220,14 +208,13 @@ def api_recipe(id):
             return jsonify({"message": "No se ha podido eliminar"}), 404
 
         
-@app.route("/api/recetas?con=<bebida>")
+@app.route("/api/recipes?con=<bebida>")
 def api_recetas_con(bebida):
-    """Devolución de Json con las recetas que contengan cierta bebida entre sus ingredientes"""
-
-    buscado = db.recipes.find({"ingredients.name": {"$eq": f"{bebida}"}})
-    if buscado:
-        buscado['_id'] = str(buscado['_id'])
-        return jsonify(buscado)
-    else:
-        return jsonify(buscado), 404
-       
+    """Devolución de Json con las recetas que contengan cierta bebida entre sus
+    ingredientes"""
+    
+    buscado = db.recipes.find({
+        "ingredients.name": {"$eq": str(bebida)}
+    })
+    code = 200 if buscado else 404
+    return jsonify(buscado), code
