@@ -1,5 +1,6 @@
 # docker-compose.yml
- 
+version: "3.8" 
+
 services:
   app:
     build: .
@@ -19,9 +20,11 @@ services:
       - ./datos_db:/data/db
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:latest
     depends_on:
       - mongo
     restart: always
     ports:
       - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_URL="mongodb://mongo:27017"

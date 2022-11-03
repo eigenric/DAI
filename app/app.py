@@ -156,9 +156,15 @@ def api_recipes():
         GET: Devolución de JSON con todas las recetas.
         POST: Crear recetas. Devuelve resultado y receta creada.
     """
-
     if request.method == "GET": 
-        buscados = db.recipes.find().sort("name")
+        # Recetas con cierto ingrediente o todas las recetas
+        if "con" in request.args:
+            buscados = db.recipes.find({
+                 "ingredients.name": {"$eq": "Vodka"} 
+            })
+        else: 
+            buscados = db.recipes.find().sort("name")
+
         recetas = [str(receta) for receta in buscados]
         return jsonify(recetas), 200 # Ok
 
@@ -206,15 +212,3 @@ def api_recipe(id):
             }), 200
         else:
             return jsonify({"message": "No se ha podido eliminar"}), 404
-
-        
-@app.route("/api/recipes?con=<bebida>")
-def api_recetas_con(bebida):
-    """Devolución de Json con las recetas que contengan cierta bebida entre sus
-    ingredientes"""
-    
-    buscado = db.recipes.find({
-        "ingredients.name": {"$eq": str(bebida)} 
-    })
-    code = 200 if buscado else 404
-    return jsonify(buscado), code

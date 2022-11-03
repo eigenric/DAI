@@ -1,0 +1,37 @@
+# Peticiones HTTP TEST
+
+### Obtener todas las recetas
+GET http://localhost:5000/api/recipes HTTP/1.1
+
+### Obtener las recetas con Vodka como ingrediente
+GET http://localhost:5000/api/recipes?con=Vodka HTTP/1.1
+
+### Obtener la receta Quaker's Cocktail a partir de su ID
+GET http://localhost:5000/api/recipes/5f7daa178ec9dfb536781b0c HTTP/1.1
+
+### Borrar la receta bruised heart
+DELETE http://localhost:5000/api/recipes/5f7daa1a8ec9dfb536781b0e HTTP/1.1
+
+### Modificar el nombre de la receta Quaker's Cocktail 
+PUT http://localhost:5000/api/recipes/5f7daa178ec9dfb536781b0c HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Bellini"
+}
+
+### Crear una receta
+POST http://localhost:5000/api/recipes/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Fuzzball",
+  "ingredients": [
+    { "name": "Peach Schnapps", "quantity": { "value": "1/3", "unit": "dash" } },
+    { "name": "Sprite", "quantity": { "value": "2/3", "unit": "dash" } }
+  ],
+  "instructions": [
+    "Combine ingredients and pour over ice."
+  ],
+  "slug": "fuzzball"
+}

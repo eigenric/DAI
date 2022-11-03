@@ -1,3 +1,18 @@
+db.recipes.findOne({"slug": "fuzzball"})
+db.recipes.findOne({"_id": ObjectId("5f7b4b6204799f5cf837b1e1")})
+db.recipes.find_one({"_id_": ObjectId("5f7b4b6204799f5cf837b1e1")})
+db.recipes.find({"_id_": ObjectId("5f7b4b6204799f5cf837b1e1")})
+db.recipes.find()
+5f7daa198ec9dfb536781b0d
+db.recipes.find()
+db.find()
+use cockteles
+db.recipes.find()
+use cockteles
+exit
+db.recipes.find()
+db.find()
+use cockteles
 db.recipes.find({"ingredients.name": {"$eq": "Vodka"}})
 clear
 use cockteles
