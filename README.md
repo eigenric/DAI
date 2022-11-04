@@ -4,7 +4,7 @@
 
 El proyecto archivo `docker-compose.yml` para la gestión de los 
 contenedores y un archivo `Dockerfile` para el contenedor principal de
-la aplicación (carpeta app).
+la aplicación (paquete app).
 
 ## Contenido
 
