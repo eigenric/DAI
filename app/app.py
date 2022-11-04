@@ -91,8 +91,6 @@ def mongo_recetas_de(cocktel):
 def mongo_recetas_con(bebida):
     """Devuelve las recetas con cierta bebida en sus ingredientes"""
 
-    # TODO: Lemon Vodka es vodka (?)
-
     recetas_con_bebida = db.recipes.find({
         "ingredients.name": {"$eq": str(bebida) }
     } )    
