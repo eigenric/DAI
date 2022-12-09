@@ -1,3 +1,4 @@
 flask==2.2.2
 pymongo
 flask-restful
+django==4.1.1

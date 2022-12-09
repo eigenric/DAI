@@ -29,3 +29,11 @@ services:
       - 8081:8081
     environment:
       - ME_CONFIG_MONGODB_URL="mongodb://mongo:27017"
+    
+  web:
+    build: .
+    volumes:
+      - ./app:/app
+    ports:
+      - 8000:8000
+    command: python mi_sitio/manage.py runserver 0.0.0.0:8000
