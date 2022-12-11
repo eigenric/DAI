@@ -1,8 +1,8 @@
 {% extends 'recetas/base.html' %}
 
-{% load static %}
+{% block title %} Receta - {{ receta.nombre }}{% endblock %}
 
-{% block title %} Recetas {% endblock %}
+{% load static %}
 
 {% block customstyle %}
     <link rel="stylesheet" href="{% static 'recetas/sticky-footer-navbar.css' %}">
@@ -12,14 +12,14 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Recetas</a>
+                <a class="navbar-brand" href="/">Recetas</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
@@ -33,30 +33,26 @@
   
     <main class="flex-shrink-0">
         <div class="container">
-            <h1 class="mt-5">Listado de Recetas</h1>
-                <p class="lead">
-                    Las siguientes recetas son listadas en tabla
-                </p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        {# <th scope="col">Foto</th> #}
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Detalle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for receta in recetas %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            {# <td><img width="10%" height="10%" src="{{ receta.foto.url }}"></td> #}
-                            <td>{{ receta.nombre }}</td>
-                            <td><a href="receta/{{ receta.slug }}"><button type="button" class="btn btn-dark">Ver más</button></a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <br/>
+            <h1 class="text-center">Receta de {{ receta.nombre }}</h1>
+            <br/>
+            <div class="row">
+                <div class="col-4">
+                    <h2>Resultado</h2>
+                    <img src="{{ receta.foto.url }}" width="75%" height="40%"/>
+                    <br/><br/>
+                    <h2>Ingredientes</h2>
+                    <ul>
+                        {% for ingrediente in ingredientes %}
+                            <li>{{ ingrediente.cantidad }} {{ ingrediente.unidades }} de {{ ingrediente.nombre }} </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-8">
+                    <h2>Preparación</h2>
+                    <p>{{ receta.preparación |  safe }}</p>
+                </div>
+            </div>
         </div>
     </main>
 {% endblock %}

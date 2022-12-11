@@ -34,6 +34,7 @@ services:
     build: .
     volumes:
       - ./app:/app
+      - ./dump:/dump
     ports:
       - 8000:8000
     command: python mi_sitio/manage.py runserver 0.0.0.0:8000
