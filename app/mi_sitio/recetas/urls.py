@@ -6,5 +6,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('receta/<slug:slug>', receta_detalle, name="unique_slug")
+    path('receta/<slug:slug>', receta_detalle, name="unique_slug"),
 ]
