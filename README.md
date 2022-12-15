@@ -38,3 +38,18 @@ Primera entrega (P0-P2.2)
             - Método post
             - Método delete
         - Testeo de la API Restfull con extensión en VSCode.
+- **Práctica 3.1** Uso de Django Web Framework
+    - Instalación
+    - Modelos `Receta` e `Ingrediente`
+    - Url, views, django admin.
+- **Práctica 3.2** Maquetación en plantillas django
+    - Plantillas `base.html`, `index.html`, `receta.html`, y `search.html`
+    - Uso de Boostrap Framework
+    - Barra de navegación con cuadro de búsqueda (plantilla search)
+    - Botón para modo oscuro
+        - Uso de Boostrap-dark
+        - Uso de Django sesiones (`session.theme` es `dark` `light`)
+- **Práctica 3.3** Formularios
+- **Práctica 3.4** Autentificación
+- **Práctica 4** React:
+

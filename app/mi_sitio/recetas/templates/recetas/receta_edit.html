@@ -1,0 +1,22 @@
+{% extends 'recetas/base.html' %}
+
+{% block title %} Nueva receta {% endblock %}
+
+{% load static %}
+
+{% block customstyle %}
+    <link rel="stylesheet" href="{% static 'recetas/sticky-footer-navbar.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="flex-shrink-0">
+        <div class="container">
+            <div class="row">
+                <form method="POST" class="receta-form">{% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="save btn btn-default">Save</button>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
