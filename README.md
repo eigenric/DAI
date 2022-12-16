@@ -38,6 +38,9 @@ Primera entrega (P0-P2.2)
             - Método post
             - Método delete
         - Testeo de la API Restfull con extensión en VSCode.
+
+Segunda Entrega (P3.1-P3.4)
+
 - **Práctica 3.1** Uso de Django Web Framework
     - Instalación
     - Modelos `Receta` e `Ingrediente`
@@ -51,5 +54,14 @@ Primera entrega (P0-P2.2)
         - Uso de Django sesiones (`session.theme` es `dark` `light`)
 - **Práctica 3.3** Formularios
 - **Práctica 3.4** Autentificación
-- **Práctica 4** React:
+    - Login, Logout, Signup
+    - Registro de usuarios por defecto en modo staff
+    - Privilegios: staff puede editar
+    - Privilegios: superusuario puede además eliminar y añadir
 
+Tercera Entrega (P4)
+
+- **Práctica 4** Frontend:
+    - Uso de boostrap 5, fetch. Reutilización de plantillas
+    - Funcionalidades de GET, DELETE, POST
+    - Modo nocturno
