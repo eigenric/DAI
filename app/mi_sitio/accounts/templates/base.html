@@ -51,23 +51,11 @@
                     <!-- ***** ***** ***** THE BUTTON GOES HERE ***** ***** ***** -->
 
 
-                    <form action="{% url 'index' %}" class="d-flex me-4" role="search">
+                    <form action="{% url 'index' %}" class="d-flex" role="search">
                       <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
                       <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-
-                    {% if user.is_authenticated %}
-                      <div class="dropdown show">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          {{ user.username }}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
-                        </div>
-                      </div>
-                    {% else %}
-                      <a href="{% url 'login' %}"><button class="btn btn-primary">Log in</button></a>
-                    {% endif %}
+                  
                 </div>
             </div>
         </nav>

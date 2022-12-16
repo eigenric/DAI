@@ -1,6 +1,7 @@
 {% extends 'recetas/base.html' %}
 
 {% load static %}
+{% load recetas_extras %}
 
 {% block title %} Recetas {% endblock %}
 
@@ -19,13 +20,17 @@
                     </div>
                 {% endfor %}
             {% endif %}
+
             <h1 class="mt-5">Recetas de postres:</h1>
                 <p class="lead">
                     Aprende a hacer postres caseros, tanto fáciles como
                     elaborados, con nuestras recetas de postres explicadas paso
                     a paso. <i class="fa-solid fa-cookie"></i>
                 </p>
+            {% if user.is_authenticated and user.is_superuser %}
             <a href="/crear-receta"><button type="button" class="btn btn-success"><i class="fa-solid fa-plus"></i> Receta</button></a>
+            {% endif %}
+            
             <table class="table">
                 <thead>
                     <tr>
@@ -43,9 +48,18 @@
                             {# <td><img width="10%" height="10%" src="{{ receta.foto.url }}"></td> #}
                             <td>{{ receta.nombre }}</td>
                             <td><a href="receta/{{ receta.slug }}"><button type="button" class="btn btn-dark">Ver más</button></a></td>
-                            <td><a href="editar-receta/{{ receta.slug }}"><button type="button" class="btn btn-primary">Editar</button></a>
+                            {% if user.is_authenticated %}
+                            {% if user|has_group:"staff" %}
+                            <td>
+                                <a href="editar-receta/{{ receta.slug }}"><button type="button" class="btn btn-primary">Editar</button></a>
+                                {% if user.is_superuser %}
                                 <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminarModal{{ forloop.counter }}">Eliminar</button>
+                                {% endif %}
                             </td>
+                            {% endif %}
+                            {% else %}
+                                <td>No autenticado</td>
+                            {% endif %}
                         </tr>
 
                         <!-- Modal -->

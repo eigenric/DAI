@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles', 
     'import_export',
+    # Formularios
     'crispy_forms',
     'crispy_bootstrap5',
-    'recetas.apps.RecetasConfig'    
+    'recetas.apps.RecetasConfig',
+    'accounts',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -62,7 +64,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'recetas' / 'templates' 
+            BASE_DIR / 'recetas' / 'templates' ,
+            BASE_DIR / 'templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -75,6 +78,9 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "index"  # new
 
 WSGI_APPLICATION = 'mi_sitio.wsgi.application'
 
