@@ -6,6 +6,11 @@ El proyecto archivo `docker-compose.yml` para la gestión de los
 contenedores y un archivo `Dockerfile` para el contenedor principal de
 la aplicación (paquete app).
 
+## Visualización
+
+<img width="1468" alt="Captura de Pantalla 2022-12-16 a las 21 20 53" src="https://user-images.githubusercontent.com/1909548/208182759-296aee88-6e65-484b-91f6-f131014ce22a.png">
+
+
 ## Contenido
 
 Primera entrega (P0-P2.2)
