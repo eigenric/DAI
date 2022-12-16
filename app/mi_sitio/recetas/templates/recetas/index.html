@@ -11,6 +11,14 @@
 {% block content %}
     <main class="flex-shrink-0">
         <div class="container">
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="alert alert-{{ msg.tags }} alert-dismissable fade show" role="alert">
+                        <strong>{{ msg.message }}</strong>
+                        <button type="button" data-bs-dismiss="alert" class="btn-close" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
             <h1 class="mt-5">Recetas de postres:</h1>
                 <p class="lead">
                     Aprende a hacer postres caseros, tanto fáciles como
@@ -35,9 +43,29 @@
                             {# <td><img width="10%" height="10%" src="{{ receta.foto.url }}"></td> #}
                             <td>{{ receta.nombre }}</td>
                             <td><a href="receta/{{ receta.slug }}"><button type="button" class="btn btn-dark">Ver más</button></a></td>
-                            <td><a href="receta/{{ receta.slug }}"><button type="button" class="btn btn-primary">Editar</button></a>
-                                <a href="receta/{{ receta.slug }}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+                            <td><a href="editar-receta/{{ receta.slug }}"><button type="button" class="btn btn-primary">Editar</button></a>
+                                <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#eliminarModal{{ forloop.counter }}">Eliminar</button>
+                            </td>
                         </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="eliminarModal{{ forloop.counter }}" tabindex="-1" aria-labelledby="eliminarModal{{ forloop.counter }}Label" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="eliminarModal{{ forloop.counter }}Label">Confirmación</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                ¿Está seguro de que desea eliminar la receta?
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No.</button>
+                                    <a href="eliminar-receta/{{ receta.slug }}"><button type="button" class="btn btn-danger">Sí, eliminar.</button></a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     {% endfor %}
                 </tbody>
             </table>
