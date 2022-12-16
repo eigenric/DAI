@@ -7,3 +7,4 @@ tablib
 django-autoslug
 django-crispy-forms
 crispy-bootstrap5
+flask-cors

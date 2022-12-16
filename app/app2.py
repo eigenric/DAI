@@ -5,10 +5,16 @@ from bson import ObjectId
 from datetime import datetime
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource, reqparse, abort
+from flask_restful.utils import cors
+from flask_cors import CORS
 from pymongo import MongoClient
 
 app = Flask(__name__)
 api = Api(app)
+CORS(app, 
+    origins="*", 
+    methods=["GET", "PUT", "POST", "DELETE"],
+    send_wildcard=True)
 
 client = MongoClient("mongo", 27017)
 db = client.cockteles
@@ -27,6 +33,7 @@ class JSONEncoder(json.JSONEncoder):
 app.json_encoder = JSONEncoder
 
 class Recipes(Resource):
+
     def get(self):
         if "con" in request.args:
             # Recetas con cualquier ingrediente que
